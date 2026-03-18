@@ -29,9 +29,17 @@ describe('MiniMax Provider - Type Registration', () => {
   it('should have MiniMax models defined', () => {
     const models = llmProviderModelNames[ProviderTypeEnum.MiniMax];
     expect(models).toBeDefined();
+    expect(models).toContain('MiniMax-M2.7');
+    expect(models).toContain('MiniMax-M2.7-highspeed');
     expect(models).toContain('MiniMax-M2.5');
     expect(models).toContain('MiniMax-M2.5-highspeed');
-    expect(models).toHaveLength(2);
+    expect(models).toHaveLength(4);
+  });
+
+  it('should have MiniMax-M2.7 as the first (default) model', () => {
+    const models = llmProviderModelNames[ProviderTypeEnum.MiniMax];
+    expect(models[0]).toBe('MiniMax-M2.7');
+    expect(models[1]).toBe('MiniMax-M2.7-highspeed');
   });
 
   it('should have MiniMax parameters for Planner agent', () => {
@@ -79,6 +87,8 @@ describe('MiniMax Provider - Configuration', () => {
   it('should include MiniMax models in default config', () => {
     const config = getDefaultProviderConfig('minimax');
     expect(config.modelNames).toBeDefined();
+    expect(config.modelNames).toContain('MiniMax-M2.7');
+    expect(config.modelNames).toContain('MiniMax-M2.7-highspeed');
     expect(config.modelNames).toContain('MiniMax-M2.5');
     expect(config.modelNames).toContain('MiniMax-M2.5-highspeed');
   });
@@ -104,12 +114,12 @@ describe('MiniMax Provider - createChatModel', () => {
       baseUrl: 'https://api.minimax.io/v1',
       name: 'MiniMax',
       type: ProviderTypeEnum.MiniMax,
-      modelNames: ['MiniMax-M2.5'],
+      modelNames: ['MiniMax-M2.7'],
     };
 
     const modelConfig = {
       provider: ProviderTypeEnum.MiniMax,
-      modelName: 'MiniMax-M2.5',
+      modelName: 'MiniMax-M2.7',
       parameters: { temperature: 0.7, topP: 0.9 },
     };
 
@@ -117,7 +127,7 @@ describe('MiniMax Provider - createChatModel', () => {
 
     expect(mockChatOpenAI).toHaveBeenCalledWith(
       expect.objectContaining({
-        model: 'MiniMax-M2.5',
+        model: 'MiniMax-M2.7',
         apiKey: 'test-minimax-key',
         temperature: 0.7,
         topP: 0.9,
@@ -140,7 +150,7 @@ describe('MiniMax Provider - createChatModel', () => {
 
     const modelConfig = {
       provider: ProviderTypeEnum.MiniMax,
-      modelName: 'MiniMax-M2.5',
+      modelName: 'MiniMax-M2.7',
       parameters: { temperature: 0, topP: 0.5 },
     };
 
@@ -165,7 +175,7 @@ describe('MiniMax Provider - createChatModel', () => {
 
     const modelConfig = {
       provider: ProviderTypeEnum.MiniMax,
-      modelName: 'MiniMax-M2.5-highspeed',
+      modelName: 'MiniMax-M2.7-highspeed',
       parameters: { temperature: 0.5, topP: 0.85 },
     };
 
@@ -173,7 +183,7 @@ describe('MiniMax Provider - createChatModel', () => {
 
     expect(mockChatOpenAI).toHaveBeenCalledWith(
       expect.objectContaining({
-        model: 'MiniMax-M2.5-highspeed',
+        model: 'MiniMax-M2.7-highspeed',
         temperature: 0.5,
       }),
     );
@@ -191,7 +201,7 @@ describe('MiniMax Provider - createChatModel', () => {
 
     const modelConfig = {
       provider: ProviderTypeEnum.MiniMax,
-      modelName: 'MiniMax-M2.5',
+      modelName: 'MiniMax-M2.7',
       parameters: { temperature: 1.5, topP: 0.9 },
     };
 
@@ -248,7 +258,7 @@ describe('MiniMax Provider - Integration Smoke Tests', () => {
 
     const modelConfig = {
       provider: ProviderTypeEnum.MiniMax,
-      modelName: 'MiniMax-M2.5',
+      modelName: 'MiniMax-M2.7',
       // No parameters - should use defaults
     };
 

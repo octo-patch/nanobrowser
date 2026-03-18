@@ -50,7 +50,7 @@ export const llmProviderModelNames = {
     'Llama-4-Maverick-17B-128E-Instruct-FP8',
     'Llama-4-Scout-17B-16E-Instruct-FP8',
   ],
-  [ProviderTypeEnum.MiniMax]: ['MiniMax-M2.5', 'MiniMax-M2.5-highspeed'],
+  [ProviderTypeEnum.MiniMax]: ['MiniMax-M2.7', 'MiniMax-M2.7-highspeed', 'MiniMax-M2.5', 'MiniMax-M2.5-highspeed'],
   // Custom OpenAI providers don't have predefined models as they are user-defined
 };
 
